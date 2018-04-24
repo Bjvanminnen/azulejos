@@ -29,7 +29,7 @@ export default function drawWall(wallCanvas, tile, settings) {
       ctx.putImageData(img, x * tileSize, y * tileSize);
     }
   }
-
+  
   if (showGridlines) {
     ctx.strokeStyle = 'lightgray';
     ctx.lineWidth = 0.5;
