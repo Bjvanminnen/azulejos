@@ -4,6 +4,7 @@ import drawWall from './drawWall';
 import Tile from './Tile';
 import rgb from './rgb';
 import ColorPicker from './ColorPicker';
+import save, { load } from './save';
 
 const wallZoom = 2;
 const tileSize = 15;
@@ -14,7 +15,7 @@ class App extends Component {
 constructor(props) {
     super(props);
 
-    this.tile = new Tile(tileSize);
+    this.tile = load() || new Tile(tileSize);
     this.state = {
       tileZoom: 10,
     };
@@ -39,6 +40,7 @@ constructor(props) {
     const x = Math.floor((event.clientX - rect.left) / tileZoom);
     const y = Math.floor((event.clientY - rect.top) / tileZoom);
     this.tile.setPixel(x, y, this.color);
+    save(this.tile);
     this.drawCanvases();
   }
 

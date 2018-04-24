@@ -10,13 +10,11 @@ const presetColors = [
   '#587C4C', // green
   '#B13A37', //red
   '#1393C1', // cyan
-
 ];
 
 const firstColor = /#([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})/
   .exec(presetColors[2])
   .slice(1).map(x => parseInt(x, 16));
-console.log(firstColor);
 
 export default class ColorPicker extends React.Component {
   state = {
