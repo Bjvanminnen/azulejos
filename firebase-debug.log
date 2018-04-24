@@ -1,0 +1,26 @@
+[debug] [2018-04-24T17:34:38.271Z] ----------------------------------------------------------------------
+[debug] [2018-04-24T17:34:38.275Z] Command:       /home/brent/.nvm/versions/node/v6.9.1/bin/node /home/brent/git/azulejos/node_modules/.bin/firebase deploy
+[debug] [2018-04-24T17:34:38.276Z] CLI Version:   3.18.4
+[debug] [2018-04-24T17:34:38.276Z] Platform:      linux
+[debug] [2018-04-24T17:34:38.276Z] Node Version:  v6.9.1
+[debug] [2018-04-24T17:34:38.276Z] Time:          Tue Apr 24 2018 10:34:38 GMT-0700 (PDT)
+[debug] [2018-04-24T17:34:38.276Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-04-24T17:34:38.289Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-04-24T17:34:38.289Z] > authorizing via signed-in user
+[debug] [2018-04-24T17:34:38.293Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/azulejos-cc7b0  
+  
+ Tue Apr 24 2018 10:34:38 GMT-0700 (PDT)
+[debug] [2018-04-24T17:34:38.730Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-24T17:34:38.731Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/azulejos-cc7b0/tokens  
+  
+ Tue Apr 24 2018 10:34:38 GMT-0700 (PDT)
+[debug] [2018-04-24T17:34:39.081Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'azulejos-cc7b0'...
+[info] 
+[info] i  deploying hosting
+[info] i  hosting: preparing build directory for upload...
+[debug] [2018-04-24T17:34:39.590Z] >>> HTTP REQUEST PUT https://deploy.firebase.com/v1/hosting/azulejos-cc7b0/uploads/-LAsiApZpMfahMn3SO8d?fileCount=9&message=  
+  
+ Tue Apr 24 2018 10:34:39 GMT-0700 (PDT)
