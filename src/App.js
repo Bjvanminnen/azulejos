@@ -18,7 +18,7 @@ constructor(props) {
     this.state = {
       tileZoom: 10,
     };
-    this.color = rgb(0, 0, 0);
+    this.color = null;
   }
 
   componentDidMount() {

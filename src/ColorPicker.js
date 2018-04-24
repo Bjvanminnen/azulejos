@@ -1,16 +1,37 @@
 import React from 'react'
 import { SketchPicker } from 'react-color'
 
+const presetColors = [
+  '#000000',
+  '#ffffff',
+  // '#0047ab', // blue
+  '#2F4291', // blue
+  '#E3CC4A', // yellow
+  '#587C4C', // green
+  '#B13A37', //red
+  '#1393C1', // cyan
+
+];
+
+const firstColor = /#([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})/
+  .exec(presetColors[2])
+  .slice(1).map(x => parseInt(x, 16));
+console.log(firstColor);
+
 export default class ColorPicker extends React.Component {
   state = {
     displayColorPicker: false,
     color: {
-      r: 0,
-      g: 0,
-      b: 0,
+      r: firstColor[0],
+      g: firstColor[1],
+      b: firstColor[2],
       a: 1,
     },
   };
+
+  componentDidMount() {
+    this.props.onUpdateColor(this.state.color);
+  }
 
   handleClick = () => {
     this.setState({ displayColorPicker: !this.state.displayColorPicker })
@@ -62,7 +83,11 @@ export default class ColorPicker extends React.Component {
         {this.state.displayColorPicker &&
           <div style={ styles.popover }>
             <div style={ styles.cover } onClick={ this.handleClose }/>
-            <SketchPicker color={ this.state.color } onChange={ this.handleChange } />
+            <SketchPicker
+              color={this.state.color}
+              onChange={this.handleChange}
+              presetColors={presetColors}
+            />
           </div>
         }
       </div>
