@@ -54,11 +54,17 @@ constructor(props) {
 
   onUpdateColor = rgb => this.color = rgb
 
+  newTile = () => {
+    window.location.hash = '';
+    window.location.reload();
+  }
+
   render() {
     const { tileZoom } = this.state;
 
     return (
       <div>
+        <button onClick={this.newTile} style={{margin: 10}}>New Tile</button>
         <div style={{margin: 10, display: 'flex'}}>
           <div style={{flexDirection: 'column', display: 'flex',}}>
             <button style={{marginRight: 5, marginBottom: 5}} onClick={this.clickZoomUp}>+</button>
@@ -73,7 +79,7 @@ constructor(props) {
             }}
             onClick={this.clickTile}
           />
-        <ColorPicker style={{marginLeft: 5}} onUpdateColor={this.onUpdateColor}/>
+          <ColorPicker onUpdateColor={this.onUpdateColor}/>
         </div>
         <canvas
           ref={e => this.wallCanvas = e}
