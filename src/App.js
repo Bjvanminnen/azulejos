@@ -3,6 +3,7 @@ import drawTile from './drawTile';
 import drawWall from './drawWall';
 import Tile from './Tile';
 import rgb from './rgb';
+import ColorPicker from './ColorPicker';
 
 const wallZoom = 2;
 const tileSize = 15;
@@ -17,6 +18,7 @@ constructor(props) {
     this.state = {
       tileZoom: 10,
     };
+    this.color = rgb(0, 0, 0);
   }
 
   componentDidMount() {
@@ -36,7 +38,7 @@ constructor(props) {
     const rect = event.target.getBoundingClientRect();
     const x = Math.floor((event.clientX - rect.left) / tileZoom);
     const y = Math.floor((event.clientY - rect.top) / tileZoom);
-    this.tile.setPixel(x, y, rgb(0, 0, 0));
+    this.tile.setPixel(x, y, this.color);
     this.drawCanvases();
   }
 
@@ -45,8 +47,10 @@ constructor(props) {
   }
 
   clickZoomDown = () => {
-    this.setState({tileZoom: this.state.tileZoom - 1}, this.drawCanvases);        
+    this.setState({tileZoom: this.state.tileZoom - 1}, this.drawCanvases);
   }
+
+  onUpdateColor = rgb => this.color = rgb
 
   render() {
     const { tileZoom } = this.state;
@@ -67,6 +71,7 @@ constructor(props) {
             }}
             onClick={this.clickTile}
           />
+        <ColorPicker style={{marginLeft: 5}} onUpdateColor={this.onUpdateColor}/>
         </div>
         <canvas
           ref={e => this.wallCanvas = e}
