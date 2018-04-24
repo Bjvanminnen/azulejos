@@ -1,3 +1,5 @@
+import { getColor } from './rgb';
+
 export default function drawTile(tileCanvas, tile, settings) {
   const { zoom, tileSize } = settings;
   const ctx = tileCanvas.getContext('2d');
@@ -5,7 +7,7 @@ export default function drawTile(tileCanvas, tile, settings) {
 
   for (let x = 0; x < tileSize; x++) {
     for (let y = 0; y < tileSize; y++) {
-      ctx.fillStyle = tile.pixels[x][y];
+      ctx.fillStyle = getColor(tile.pixels[x][y]);
       ctx.fillRect(x * zoom, y * zoom, zoom, zoom);
     }
   }

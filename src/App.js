@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import drawTile from './drawTile';
+import drawWall from './drawWall';
 import Tile from './Tile';
+import rgb from './rgb';
 
 const margin = 10;
 
 const tileSize = 20;
-const zoom = 8;
+const zoom = 10;
 const tilesWide = 30;
 const tilesHigh = 30;
 
@@ -22,13 +24,14 @@ class App extends Component {
 
   drawCanvases() {
     drawTile(this.tileCanvas, this.tile, { zoom, tileSize });
+    drawWall(this.wallCanvas, this.tile, { tileSize, tilesWide, tilesHigh });
   }
 
   clickTile = event => {
     const rect = event.target.getBoundingClientRect();
     const x = Math.floor((event.clientX - rect.left) / zoom);
     const y = Math.floor((event.clientY - rect.top) / zoom);
-    this.tile.setPixel(x, y, 'black');
+    this.tile.setPixel(x, y, rgb(0, 0, 0));
     this.drawCanvases();
   }
 
@@ -46,11 +49,10 @@ class App extends Component {
           onClick={this.clickTile}
         />
         <canvas
-          ref={e => this.wall = e}
+          ref={e => this.wallCanvas = e}
           width={tileSize * tilesWide}
           height={tileSize * tilesHigh}
           style={{
-            border: '1px solid black',
             display: 'block',
             margin,
           }}
