@@ -5,6 +5,7 @@ import Tile from './Tile';
 import rgb from './rgb';
 import ColorPicker from './ColorPicker';
 import save, { load } from './save';
+import Description from './Description';
 
 const wallZoom = 2;
 const tileSize = 15;
@@ -18,6 +19,7 @@ constructor(props) {
     this.tile = load() || new Tile(tileSize);
     this.state = {
       tileZoom: 10,
+      showGridlines: true,
     };
     this.color = null;
   }
@@ -27,10 +29,10 @@ constructor(props) {
   }
 
   drawCanvases() {
-    const { tileZoom } = this.state;
+    const { tileZoom, showGridlines } = this.state;
 
     drawTile(this.tileCanvas, this.tile, { zoom: tileZoom, tileSize });
-    drawWall(this.wallCanvas, this.tile, { tileSize, tilesWide, tilesHigh, zoom: wallZoom});
+    drawWall(this.wallCanvas, this.tile, { tileSize, tilesWide, tilesHigh, zoom: wallZoom, showGridlines});
   }
 
   clickTile = event => {
@@ -52,6 +54,8 @@ constructor(props) {
     this.setState({tileZoom: this.state.tileZoom - 1}, this.drawCanvases);
   }
 
+  clickGridlines = () => this.setState({showGridlines: !this.state.showGridlines}, this.drawCanvases);
+
   onUpdateColor = rgb => this.color = rgb
 
   newTile = () => {
@@ -65,6 +69,7 @@ constructor(props) {
     return (
       <div>
         <button onClick={this.newTile} style={{margin: 10}}>New Tile</button>
+        <Description/>
         <div style={{margin: 10, display: 'flex'}}>
           <div style={{flexDirection: 'column', display: 'flex',}}>
             <button style={{marginRight: 5, marginBottom: 5}} onClick={this.clickZoomUp}>+</button>
@@ -79,7 +84,7 @@ constructor(props) {
             }}
             onClick={this.clickTile}
           />
-          <ColorPicker onUpdateColor={this.onUpdateColor}/>
+        <ColorPicker style={{marginLeft: 5}} onUpdateColor={this.onUpdateColor}/>
         </div>
         <canvas
           ref={e => this.wallCanvas = e}
@@ -90,6 +95,14 @@ constructor(props) {
             margin: 10,
           }}
         />
+        <div style={{marginLeft: 10}}>
+          <input
+            type="checkbox"
+            checked={this.state.showGridlines}
+            onChange={this.clickGridlines}
+          />
+          Show lines between tiles
+        </div>
       </div>
     );
   }

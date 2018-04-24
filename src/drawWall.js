@@ -1,5 +1,5 @@
 export default function drawWall(wallCanvas, tile, settings) {
-  const { tileSize, tilesWide, tilesHigh, zoom } = settings;
+  const { tileSize, tilesWide, tilesHigh, zoom, showGridlines } = settings;
   const ctx = wallCanvas.getContext('2d');
 
   ctx.clearRect(0, 0, tileSize * tilesWide, tileSize * tilesHigh);
@@ -30,11 +30,13 @@ export default function drawWall(wallCanvas, tile, settings) {
     }
   }
 
-  ctx.strokeStyle = 'lightgray';
-  ctx.lineWidth = 0.5;
-  for (let x = 0; x < tilesWide; x++) {
-    for (let y = 0; y < tilesHigh; y++) {
-      ctx.strokeRect(x * tileSize, y * tileSize, tileSize, tileSize);
+  if (showGridlines) {
+    ctx.strokeStyle = 'lightgray';
+    ctx.lineWidth = 0.5;
+    for (let x = 0; x < tilesWide; x++) {
+      for (let y = 0; y < tilesHigh; y++) {
+        ctx.strokeRect(x * tileSize, y * tileSize, tileSize, tileSize);
+      }
     }
   }
 
