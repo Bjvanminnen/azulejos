@@ -1,5 +1,5 @@
 export default function drawWall(wallCanvas, tile, settings) {
-  const { tileSize, tilesWide, tilesHigh } = settings;
+  const { tileSize, tilesWide, tilesHigh, zoom } = settings;
   const ctx = wallCanvas.getContext('2d');
 
   ctx.clearRect(0, 0, tileSize * tilesWide, tileSize * tilesHigh);
@@ -41,6 +41,21 @@ export default function drawWall(wallCanvas, tile, settings) {
   ctx.strokeStyle = 'black';
   ctx.lineWidth = 1;
   ctx.strokeRect(0, 0, tileSize * tilesWide, tileSize * tilesHigh);
+  resize(wallCanvas, zoom);
+}
+
+function resize(canvas, pct) {
+  const tempCanvas = document.createElement('canvas');
+  const tctx=tempCanvas.getContext("2d");
+  var cw=canvas.width;
+  var ch=canvas.height;
+  tempCanvas.width=cw;
+  tempCanvas.height=ch;
+  tctx.drawImage(canvas,0,0);
+  // canvas.width*=pct;
+  // canvas.height*=pct;
+  var ctx=canvas.getContext('2d');
+  ctx.drawImage(tempCanvas,0,0,cw,ch,0,0,cw*pct,ch*pct);
 }
 
 function reflect(ctx, base, reflectX, reflectY) {
