@@ -1,17 +1,25 @@
 import Tile from './Tile';
 import rgb from './rgb';
 
+const EMPTY = '';
+
+function serializeRow(row) {
+  const cells = row.map(serializeCell);
+  if (cells.some(x => x !== EMPTY)) {
+    return cells.join('-');
+  }
+  return EMPTY;
+}
+
 function serializeCell(cell) {
   if (cell.r === 255 && cell.g === 255 && cell.b === 255) {
-    return '0';
+    return EMPTY;
   }
   return [cell.r, cell.g, cell.b].join(',');
 }
 
 function serialize(tile) {
-  return tile.pixels.map(row =>
-    row.map(serializeCell).join('-')
-  ).join('|');
+  return tile.pixels.map(serializeRow).join('|');
 }
 
 function deserialize(str) {
@@ -21,10 +29,12 @@ function deserialize(str) {
   const tile = new Tile(tileSize);
 
   for (let x = 0; x < tileSize; x++) {
-    const row = rows[x].split('-');
+    let row;
+    if (rows[x] !== EMPTY) {
+      row = rows[x].split('-');
+    }
     for (let y = 0; y < tileSize; y++) {
-
-      if (row[y] === '0') {
+      if (!row || row[y] === EMPTY) {
         tile.pixels[x][y] = rgb(255, 255, 255);
       } else {
         const cell = row[y].split(',').map(x => parseInt(x, 10));
